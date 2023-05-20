@@ -11,6 +11,9 @@
 		D65327C42A18DE1A002C7E9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327C32A18DE1A002C7E9E /* ContentView.swift */; };
 		D65327C62A18DE1A002C7E9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65327C52A18DE1A002C7E9E /* Assets.xcassets */; };
 		D65327C92A18DE1A002C7E9E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65327C82A18DE1A002C7E9E /* Preview Assets.xcassets */; };
+		D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */; };
+		D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */; };
+		D65327E62A191568002C7E9E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E52A191568002C7E9E /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,10 @@
 		D65327C32A18DE1A002C7E9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D65327C52A18DE1A002C7E9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D65327C82A18DE1A002C7E9E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D65327DE2A18DEF0002C7E9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-Bold.ttf"; sourceTree = "<group>"; };
+		D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-SemiBold.ttf"; sourceTree = "<group>"; };
+		D65327E52A191568002C7E9E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +59,11 @@
 			isa = PBXGroup;
 			children = (
 				D65327C12A18DE1A002C7E9E /* GalasinApp.swift */,
-				D65327C32A18DE1A002C7E9E /* ContentView.swift */,
+				D65327E72A1915BC002C7E9E /* Models */,
+				D65327E32A19151E002C7E9E /* Views */,
+				D65327E42A191523002C7E9E /* ViewModels */,
 				D65327C52A18DE1A002C7E9E /* Assets.xcassets */,
+				D65327CF2A18DE91002C7E9E /* Resources */,
 				D65327C72A18DE1A002C7E9E /* Preview Content */,
 			);
 			path = Galasin;
@@ -65,6 +75,55 @@
 				D65327C82A18DE1A002C7E9E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D65327CF2A18DE91002C7E9E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D65327DE2A18DEF0002C7E9E /* Info.plist */,
+				D65327D02A18DE98002C7E9E /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D65327D02A18DE98002C7E9E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D65327D12A18DE9D002C7E9E /* Kodchasan */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D65327D12A18DE9D002C7E9E /* Kodchasan */ = {
+			isa = PBXGroup;
+			children = (
+				D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */,
+				D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */,
+			);
+			path = Kodchasan;
+			sourceTree = "<group>";
+		};
+		D65327E32A19151E002C7E9E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D65327C32A18DE1A002C7E9E /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D65327E42A191523002C7E9E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D65327E52A191568002C7E9E /* GameManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D65327E72A1915BC002C7E9E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +184,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */,
 				D65327C92A18DE1A002C7E9E /* Preview Assets.xcassets in Resources */,
+				D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */,
 				D65327C62A18DE1A002C7E9E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D65327C42A18DE1A002C7E9E /* ContentView.swift in Sources */,
+				D65327E62A191568002C7E9E /* GameManager.swift in Sources */,
 				D65327C22A18DE1A002C7E9E /* GalasinApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +332,7 @@
 				DEVELOPMENT_TEAM = 47BZXPDJKC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Galasin/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +362,7 @@
 				DEVELOPMENT_TEAM = 47BZXPDJKC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Galasin/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
