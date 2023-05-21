@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D629E5C62A19E4DB007D908C /* ColorExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629E5C52A19E4DB007D908C /* ColorExtentions.swift */; };
+		D629E5C82A19ED56007D908C /* AttackerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629E5C72A19ED56007D908C /* AttackerNode.swift */; };
+		D629E5CA2A1A3150007D908C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629E5C92A1A3150007D908C /* Constants.swift */; };
+		D629E5CC2A1A3AB6007D908C /* DefenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629E5CB2A1A3AB6007D908C /* DefenderNode.swift */; };
+		D629E5CF2A1A8741007D908C /* GamePadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629E5CE2A1A8741007D908C /* GamePadController.swift */; };
+		D629E5D42A1A8823007D908C /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D629E5D12A1A8822007D908C /* Poppins-SemiBold.ttf */; };
+		D629E5D52A1A8823007D908C /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D629E5D22A1A8822007D908C /* Poppins-Bold.ttf */; };
+		D629E5D62A1A8823007D908C /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D629E5D32A1A8823007D908C /* Poppins-Regular.ttf */; };
 		D65327C22A18DE1A002C7E9E /* GalasinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327C12A18DE1A002C7E9E /* GalasinApp.swift */; };
 		D65327C42A18DE1A002C7E9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327C32A18DE1A002C7E9E /* ContentView.swift */; };
 		D65327C62A18DE1A002C7E9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65327C52A18DE1A002C7E9E /* Assets.xcassets */; };
@@ -14,9 +22,19 @@
 		D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */; };
 		D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */; };
 		D65327E62A191568002C7E9E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E52A191568002C7E9E /* GameManager.swift */; };
+		D65327E92A191E3B002C7E9E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E82A191E3B002C7E9E /* GameView.swift */; };
+		D65327EB2A1928E6002C7E9E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327EA2A1928E6002C7E9E /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D629E5C52A19E4DB007D908C /* ColorExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtentions.swift; sourceTree = "<group>"; };
+		D629E5C72A19ED56007D908C /* AttackerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackerNode.swift; sourceTree = "<group>"; };
+		D629E5C92A1A3150007D908C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D629E5CB2A1A3AB6007D908C /* DefenderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderNode.swift; sourceTree = "<group>"; };
+		D629E5CE2A1A8741007D908C /* GamePadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePadController.swift; sourceTree = "<group>"; };
+		D629E5D12A1A8822007D908C /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		D629E5D22A1A8822007D908C /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		D629E5D32A1A8823007D908C /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		D65327BE2A18DE1A002C7E9E /* Galasin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Galasin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65327C12A18DE1A002C7E9E /* GalasinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalasinApp.swift; sourceTree = "<group>"; };
 		D65327C32A18DE1A002C7E9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,6 +44,8 @@
 		D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-Bold.ttf"; sourceTree = "<group>"; };
 		D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-SemiBold.ttf"; sourceTree = "<group>"; };
 		D65327E52A191568002C7E9E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		D65327E82A191E3B002C7E9E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		D65327EA2A1928E6002C7E9E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +59,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D629E5CD2A1A872F007D908C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D629E5CE2A1A8741007D908C /* GamePadController.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D629E5D02A1A8817007D908C /* Popppins */ = {
+			isa = PBXGroup;
+			children = (
+				D629E5D22A1A8822007D908C /* Poppins-Bold.ttf */,
+				D629E5D32A1A8823007D908C /* Poppins-Regular.ttf */,
+				D629E5D12A1A8822007D908C /* Poppins-SemiBold.ttf */,
+			);
+			path = Popppins;
+			sourceTree = "<group>";
+		};
 		D65327B52A18DE1A002C7E9E = {
 			isa = PBXGroup;
 			children = (
@@ -60,9 +98,10 @@
 			children = (
 				D65327C12A18DE1A002C7E9E /* GalasinApp.swift */,
 				D65327E72A1915BC002C7E9E /* Models */,
+				D629E5CD2A1A872F007D908C /* Components */,
 				D65327E32A19151E002C7E9E /* Views */,
 				D65327E42A191523002C7E9E /* ViewModels */,
-				D65327C52A18DE1A002C7E9E /* Assets.xcassets */,
+				D6A42C812A19C57E00772777 /* Utils */,
 				D65327CF2A18DE91002C7E9E /* Resources */,
 				D65327C72A18DE1A002C7E9E /* Preview Content */,
 			);
@@ -80,6 +119,7 @@
 		D65327CF2A18DE91002C7E9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D65327C52A18DE1A002C7E9E /* Assets.xcassets */,
 				D65327DE2A18DEF0002C7E9E /* Info.plist */,
 				D65327D02A18DE98002C7E9E /* Fonts */,
 			);
@@ -89,6 +129,7 @@
 		D65327D02A18DE98002C7E9E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D629E5D02A1A8817007D908C /* Popppins */,
 				D65327D12A18DE9D002C7E9E /* Kodchasan */,
 			);
 			path = Fonts;
@@ -107,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				D65327C32A18DE1A002C7E9E /* ContentView.swift */,
+				D65327E82A191E3B002C7E9E /* GameView.swift */,
+				D65327EA2A1928E6002C7E9E /* GameScene.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,8 +165,19 @@
 		D65327E72A1915BC002C7E9E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D629E5C72A19ED56007D908C /* AttackerNode.swift */,
+				D629E5CB2A1A3AB6007D908C /* DefenderNode.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D6A42C812A19C57E00772777 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D629E5C52A19E4DB007D908C /* ColorExtentions.swift */,
+				D629E5C92A1A3150007D908C /* Constants.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +238,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D629E5D42A1A8823007D908C /* Poppins-SemiBold.ttf in Resources */,
+				D629E5D52A1A8823007D908C /* Poppins-Bold.ttf in Resources */,
+				D629E5D62A1A8823007D908C /* Poppins-Regular.ttf in Resources */,
 				D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */,
 				D65327C92A18DE1A002C7E9E /* Preview Assets.xcassets in Resources */,
 				D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */,
@@ -198,9 +255,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D629E5C82A19ED56007D908C /* AttackerNode.swift in Sources */,
+				D65327EB2A1928E6002C7E9E /* GameScene.swift in Sources */,
 				D65327C42A18DE1A002C7E9E /* ContentView.swift in Sources */,
 				D65327E62A191568002C7E9E /* GameManager.swift in Sources */,
+				D629E5CC2A1A3AB6007D908C /* DefenderNode.swift in Sources */,
+				D65327E92A191E3B002C7E9E /* GameView.swift in Sources */,
 				D65327C22A18DE1A002C7E9E /* GalasinApp.swift in Sources */,
+				D629E5CF2A1A8741007D908C /* GamePadController.swift in Sources */,
+				D629E5C62A19E4DB007D908C /* ColorExtentions.swift in Sources */,
+				D629E5CA2A1A3150007D908C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,11 +397,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Galasin/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Galasin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,11 +430,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Galasin/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Galasin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,4 +10,5 @@ import SwiftUI
 
 class GameManager: NSObject, ObservableObject {
     
+    @Published var inGame: Bool = true
 }

@@ -13,7 +13,9 @@ struct ContentView: View {
     @State private var showDialog = false
     
     var body: some View {
-        NavigationStack {
+        if gameManager.inGame {
+            GameView()
+        } else {
             VStack {
                 Text("Galasin")
                     .font(.custom("Kodchasan-Bold", size: 40))
