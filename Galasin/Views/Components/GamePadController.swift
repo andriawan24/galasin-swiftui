@@ -16,37 +16,51 @@ struct GamePadController: View {
     }
     
     var body: some View {
-        HStack(spacing: 48) {
+        HStack(spacing: 32) {
             Button {
                 onPadTouched(.left)
             } label: {
                 Image(systemName: "arrow.left")
                     .resizable()
+                    .foregroundColor(.black)
                     .frame(width: 24, height: 24)
+                    .padding(8)
             }
-            
-            Button {
-                onPadTouched(.up)
-            } label: {
-                Image(systemName: "arrow.up")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
+            .buttonStyle(.bordered)
             
             Button {
                 onPadTouched(.right)
             } label: {
                 Image(systemName: "arrow.right")
                     .resizable()
+                    .foregroundColor(.black)
                     .frame(width: 24, height: 24)
+                    .padding(8)
             }
+            .buttonStyle(.bordered)
             
-            Button {
-                onPadTouched(.down)
-            } label: {
-                Image(systemName: "arrow.down")
-                    .resizable()
-                    .frame(width: 24, height: 24)
+            VStack(spacing: 24) {
+                Button {
+                    onPadTouched(.up)
+                } label: {
+                    Image(systemName: "arrow.up")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
+                
+                Button {
+                    onPadTouched(.down)
+                } label: {
+                    Image(systemName: "arrow.down")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
             }
         }
     }

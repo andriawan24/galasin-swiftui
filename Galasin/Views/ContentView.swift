@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         if gameManager.inGame {
-            GameView()
+            GameView(gameManager: gameManager)
         } else {
             VStack {
                 Text("Galasin")
@@ -47,6 +47,7 @@ struct ContentView: View {
 
                     Button {
                         // TODO: Play Single Player
+                        gameManager.startGame(type: .singlePlayer)
                     } label: {
                         Text("Single Player")
                             .font(.custom("Kodchasan-SemiBold", size: 22))
