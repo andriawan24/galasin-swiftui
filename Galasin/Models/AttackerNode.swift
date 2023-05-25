@@ -11,17 +11,19 @@ import SwiftUI
 class AttackerNode: SKNode {
     
     var moveable = true
+    var spawnPoint: CGPoint!
     
     private let circle: SKShapeNode = SKShapeNode(circleOfRadius: 18)
     var isActive: Bool = false {
         willSet {
             circle.strokeColor = newValue ? .black : .clear
-            circle.lineWidth = 2
+            circle.lineWidth = 4
         }
     }
     
     init(spawnPoint: CGPoint) {
         super.init()
+        self.spawnPoint = spawnPoint
         self.name = "Player"
         self.zPosition = 10.0
         self.position = spawnPoint
@@ -43,13 +45,14 @@ extension AttackerNode {
         circle.physicsBody?.affectedByGravity = false
         circle.physicsBody?.linearDamping = 0.0
         circle.physicsBody?.allowsRotation = false
-        circle.physicsBody?.usesPreciseCollisionDetection = false
+        circle.physicsBody?.usesPreciseCollisionDetection = true
 //        circle.physicsBody?.friction = 1.0
 //        circle.physicsBody?.restitution = 0.0
 //        circle.physicsBody?.mass = 10.0
-        circle.physicsBody?.collisionBitMask = 0
+        // circle.physicsBody?.collisionBitMask = 0
         circle.physicsBody?.categoryBitMask = PhysicalCategory.Attacker
         circle.physicsBody?.contactTestBitMask = PhysicalCategory.Defender | PhysicalCategory.FinishField
+        circle.physicsBody?.collisionBitMask = PhysicalCategory.Wall
         addChild(circle)
     }
 }

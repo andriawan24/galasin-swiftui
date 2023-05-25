@@ -16,7 +16,7 @@ struct GamePadController: View {
     }
     
     var body: some View {
-        HStack(spacing: 32) {
+        HStack(spacing: 12) {
             Button {
                 onPadTouched(.left)
             } label: {
@@ -39,30 +39,31 @@ struct GamePadController: View {
             }
             .buttonStyle(.bordered)
             
-            VStack(spacing: 24) {
-                Button {
-                    onPadTouched(.up)
-                } label: {
-                    Image(systemName: "arrow.up")
-                        .resizable()
-                        .foregroundColor(.black)
-                        .frame(width: 24, height: 24)
-                        .padding(8)
-                }
-                .buttonStyle(.bordered)
-                
-                Button {
-                    onPadTouched(.down)
-                } label: {
-                    Image(systemName: "arrow.down")
-                        .resizable()
-                        .foregroundColor(.black)
-                        .frame(width: 24, height: 24)
-                        .padding(8)
-                }
-                .buttonStyle(.bordered)
+            Spacer()
+            
+            Button {
+                onPadTouched(.up)
+            } label: {
+                Image(systemName: "arrow.up")
+                    .resizable()
+                    .foregroundColor(.black)
+                    .frame(width: 24, height: 24)
+                    .padding(8)
             }
+            .buttonStyle(.bordered)
+            
+            Button {
+                onPadTouched(.down)
+            } label: {
+                Image(systemName: "arrow.down")
+                    .resizable()
+                    .foregroundColor(.black)
+                    .frame(width: 24, height: 24)
+                    .padding(8)
+            }
+            .buttonStyle(.bordered)
         }
+        .padding([.horizontal, .bottom])
     }
 }
 

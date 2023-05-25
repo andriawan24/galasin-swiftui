@@ -48,6 +48,10 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         backgroundColor = .systemBackground
+        physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: frame.minX + 5, y: frame.minY, width: frame.width - 5, height: frame.height))
+        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.categoryBitMask = PhysicalCategory.Wall
+        physicsBody?.collisionBitMask = PhysicalCategory.Attacker
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
         setupNodes()
@@ -75,13 +79,14 @@ class GameScene: SKScene {
 extension GameScene {
     private func setupNodes() {
         // MARK: - Center Field
-        let centerFieldSize = CGSize(width: frame.width - 20, height: frame.height - 250)
+        let centerFieldSize = CGSize(width: frame.width - 20, height: frame.height - 220)
         centerFieldSquare = SKShapeNode(rectOf: centerFieldSize, cornerRadius: 8)
         centerFieldSquare.strokeColor = .black
         centerFieldSquare.zPosition = -1
         centerFieldSquare.lineWidth = 3
         centerFieldSquare.position = CGPoint(x: frame.midX, y: frame.midY)
         centerFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: centerFieldSize)
+        centerFieldSquare.physicsBody?.categoryBitMask = PhysicalCategory.Field
         centerFieldSquare.physicsBody?.isDynamic = false
         addChild(centerFieldSquare)
         
@@ -93,24 +98,24 @@ extension GameScene {
         bottomFieldSquare.lineWidth = 2
         bottomFieldSquare.position = CGPoint(x: frame.midX, y: frame.minY + 50)
         bottomFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: bottomFieldSize)
+        bottomFieldSquare.physicsBody?.categoryBitMask = PhysicalCategory.Field
         bottomFieldSquare.physicsBody?.isDynamic = false
         bottomFieldSquare.physicsBody?.usesPreciseCollisionDetection = false
+        bottomFieldSquare.physicsBody?.collisionBitMask = 0
         addChild(bottomFieldSquare)
         
         // MARK: - Top Field
-        let topFieldSize = CGSize(width: frame.width - 20, height: 100)
+        let topFieldSize = CGSize(width: frame.width - 20, height: 60)
         topFieldSquare = SKShapeNode(rectOf: topFieldSize)
         topFieldSquare.strokeColor = .red
         topFieldSquare.zPosition = -1
         topFieldSquare.lineWidth = 2
         topFieldSquare.position = CGPoint(x: frame.midX, y: frame.maxY - 50)
-        topFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: bottomFieldSize)
+        topFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: topFieldSize)
         topFieldSquare.physicsBody?.isDynamic = false
         topFieldSquare.physicsBody?.affectedByGravity = false
         topFieldSquare.physicsBody?.categoryBitMask = PhysicalCategory.FinishField
         topFieldSquare.physicsBody?.mass = 100.0
-//        topFieldSquare.physicsBody?.restitution = 0.0
-//        topFieldSquare.physicsBody?.friction = 1.0
         addChild(topFieldSquare)
         
         // MARK: - Add Lines
@@ -172,13 +177,19 @@ extension GameScene {
         defender2 = DefenderNode(spawnPoint: CGPoint(x: topMiddleLines.frame.midX + (topMiddleLines.frame.midX/2), y: topMiddleLines.frame.midY))
         defender3 = DefenderNode(spawnPoint: CGPoint(x: bottomMiddleLines.frame.midX / 2, y: bottomMiddleLines.frame.midY))
         defender4 = DefenderNode(spawnPoint: CGPoint(x: bottomLines.frame.midX + (bottomLines.frame.midX/2), y: bottomLines.frame.midY))
-        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY))
+        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY), type: .vertical)
         addChild(defender1)
         addChild(defender2)
         addChild(defender3)
         addChild(defender4)
         addChild(defender5)
         
+        if gameManager?.gameType == .singlePlayer {
+            setupDefenderMovement()
+        }
+    }
+    
+    private func setupDefenderMovement() {
         let moveDelay = SKAction.wait(forDuration: 1.0)
         
         let moveToLeftAction = SKAction.move(to: CGPoint(x: topLines.frame.minX, y: defender1.position.y), duration: 2.2)

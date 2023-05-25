@@ -10,10 +10,12 @@ import SpriteKit
 class DefenderNode: SKNode {
     
     private let circle: SKShapeNode = SKShapeNode(circleOfRadius: 18)
+    private var type: DefenderType = .horizontal
     
-    init(spawnPoint: CGPoint) {
+    init(spawnPoint: CGPoint, type: DefenderType = .horizontal) {
         super.init()
         self.name = "Player"
+        self.type = type
         self.zPosition = 8.0
         self.position = spawnPoint
         self.setupPhysics()
@@ -32,4 +34,8 @@ extension DefenderNode {
         circle.physicsBody?.categoryBitMask = PhysicalCategory.Defender
         addChild(circle)
     }
+}
+
+enum DefenderType {
+    case horizontal, vertical
 }
