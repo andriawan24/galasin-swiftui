@@ -14,17 +14,23 @@ class GameManager: NSObject, ObservableObject {
     @Published var inGame: Bool = false
     @Published var gameType: GameType = .singlePlayer
     @Published var score: Int = 0
-    @Published var enemyscore: Int = 0
-    @Published var playersLeft: Int = 5
+    @Published var enemyScore: Int = 0
+    @Published var attackersLeft: Int = 5
     @Published var gameFinished = false
     @Published var authStatus: PlayerAuthState = .authenticating
+    @Published var currentTeam: TeamType?
+    @Published var isAttacking: Bool = false
+    @Published var chosenPlayer: AttackerNode? = nil
+    @Published var chosenDefender: DefenderNode? = nil
     
-    var chosenPlayer: AttackerNode? = nil
     var localPlayer = GKLocalPlayer.local
     var otherPlayer: GKPlayer?
     var currentMatch: GKMatch?
-    var currentTeam: TeamType?
     var playerUUIDKey = UUID().uuidString
+    var roundToEnd = 1
+    var defenders = [DefenderNode]()
+    var attackers = [AttackerNode]()
+    var scene: GameScene?
     
     // For Showing GameKit Page
     var rootViewController: UIViewController? {
@@ -83,31 +89,74 @@ class GameManager: NSObject, ObservableObject {
     }
     
     func choosePlayer(player: AttackerNode) {
-        self.chosenPlayer = player
+        chosenDefender = nil
+        chosenPlayer = player
     }
     
-    func moveAttacker(direction: GamePadDirection) {
-        chosenPlayer?.move(direction: direction)
+    func chooseDefender(defender: DefenderNode) {
+        chosenPlayer = nil
+        chosenDefender = defender
+    }
+    
+    func movePlayer(direction: GamePadDirection) {
+        if chosenPlayer != nil {
+            chosenPlayer?.move(direction: direction)
+            send("movePlayer:attacker/\(chosenPlayer?.name ?? "")/\(direction.rawValue)")
+        } else {
+            chosenDefender?.move(direction: direction)
+            send("movePlayer:defender/\(chosenDefender?.name ?? "")/\(direction.rawValue)")
+        }
     }
     
     func increaseScore() {
-        score += 1
-        reducePlayer()
+        if gameType == .singlePlayer {
+            score += 1
+            reducePlayer()
+        } else {
+            if isAttacking {
+                score += 1
+                reducePlayer()
+                send("updateScore:\(score)")
+            }
+        }
     }
     
     func reducePlayer() {
-        playersLeft -= 1
-        if playersLeft == 0 {
-            gameFinished = true
+        attackersLeft -= 1
+//        if gameType == .multiPlayer {
+//            send("updateAttackersLeft:\(attackersLeft)")
+//        }
+        
+        if attackersLeft == 0 {
+            if gameType == .multiPlayer {
+                if roundToEnd > 0 {
+                    roundToEnd -= 1
+                    chosenPlayer = nil
+                    chosenDefender = nil
+                    isAttacking.toggle()
+                    attackersLeft = 5
+                    attackers.removeAll()
+                    defenders.removeAll()
+                    scene?.setupAttackers()
+                    scene?.setupDefenders()
+                    send("changeRound:_")
+                } else {
+                    gameFinished = true
+                }
+            } else {
+                gameFinished = true
+            }
         }
     }
     
     func resetGame() {
         score = 0
-        enemyscore = 0
+        enemyScore = 0
         chosenPlayer = nil
-        playersLeft = 5
+        attackersLeft = 5
         inGame = false
+        attackers.removeAll()
+        defenders.removeAll()
         currentMatch?.disconnect()
         currentMatch?.delegate = nil
         currentMatch = nil
@@ -127,7 +176,40 @@ class GameManager: NSObject, ObservableObject {
                 break
             }
             
-            print("Currently turn: \(playerUUIDKey)")
+            isAttacking = playerUUIDKey < parameter
+            if isAttacking {
+                currentTeam = .blue
+            } else {
+                currentTeam = .red
+            }
+        case "movePlayer":
+            let type = parameter.split(separator: "/").first ?? ""
+            let name = parameter.split(separator: "/")[1]
+            let direction = parameter.split(separator: "/").last ?? ""
+            print("Type: \(type), name: \(name), direction: \(direction)")
+            if type == "attacker" {
+                let attacker = attackers.filter { attacker in
+                    (attacker.name ?? "").lowercased() == name.lowercased()
+                }.first
+                attacker?.move(direction: GamePadDirection.init(rawValue: String(direction)) ?? .down)
+            } else if type == "defender" {
+                let defender = defenders.filter { defender in
+                    (defender.name ?? "").lowercased() == name.lowercased()
+                }.first
+                defender?.move(direction: GamePadDirection.init(rawValue: String(direction)) ?? .down)
+            }
+        case "updateScore":
+            let score = Int(parameter) ?? 0
+            enemyScore = score
+        case "changeRound":
+            chosenPlayer = nil
+            chosenDefender = nil
+            isAttacking.toggle()
+            attackersLeft = 5
+            attackers.removeAll()
+            defenders.removeAll()
+            scene?.setupAttackers()
+            scene?.setupDefenders()
         default:
             break
         }
@@ -155,7 +237,7 @@ extension GameManager : GKMatchDelegate {
         
         if content.starts(with: "strData:") {
             let message = content.replacing("strData:", with: "")
-            print("Message \(message) from \(player.displayName)")
+            handleMessage(message)
         } else {
             print("Data is \(data)")
         }

@@ -10,65 +10,81 @@ import SwiftUI
 struct GamePadController: View {
     
     var onPadTouched: (GamePadDirection) -> Void
+    var directionAvailables: [GamePadDirection] = [.left, .up, .right, .down]
     
-    init(onPadTouched: @escaping (GamePadDirection) -> Void) {
+    init(
+        directionAvailables: [GamePadDirection] = [.left, .up, .right, .down],
+        onPadTouched: @escaping (GamePadDirection) -> Void
+    ) {
         self.onPadTouched = onPadTouched
+        self.directionAvailables = directionAvailables
     }
     
     var body: some View {
         HStack(spacing: 12) {
-            Button {
-                onPadTouched(.left)
-            } label: {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 24, height: 24)
-                    .padding(8)
+            if directionAvailables.contains(.left) {
+                Button {
+                    onPadTouched(.left)
+                } label: {
+                    Image(systemName: "arrow.left")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
             
-            Button {
-                onPadTouched(.right)
-            } label: {
-                Image(systemName: "arrow.right")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 24, height: 24)
-                    .padding(8)
+            if directionAvailables.contains(.right) {
+                Button {
+                    onPadTouched(.right)
+                } label: {
+                    Image(systemName: "arrow.right")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
             
             Spacer()
             
-            Button {
-                onPadTouched(.up)
-            } label: {
-                Image(systemName: "arrow.up")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 24, height: 24)
-                    .padding(8)
+            if directionAvailables.contains(.up) {
+                Button {
+                    onPadTouched(.up)
+                } label: {
+                    Image(systemName: "arrow.up")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
             
-            Button {
-                onPadTouched(.down)
-            } label: {
-                Image(systemName: "arrow.down")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 24, height: 24)
-                    .padding(8)
+            if directionAvailables.contains(.down) {
+                Button {
+                    onPadTouched(.down)
+                } label: {
+                    Image(systemName: "arrow.down")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
         }
         .padding([.horizontal, .bottom])
     }
 }
 
-enum GamePadDirection {
-    case up, down, left, right
+enum GamePadDirection: String {
+    case up = "up"
+    case down = "down"
+    case left = "left"
+    case right = "right"
 }
 
 struct GamePadController_Previews: PreviewProvider {

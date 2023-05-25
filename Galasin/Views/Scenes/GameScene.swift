@@ -37,6 +37,7 @@ class GameScene: SKScene {
     var defender4: DefenderNode!
     var defender5: DefenderNode!
     
+    // MARK: - Initializations
     init(gameManager: GameManager, size: CGSize) {
         super.init(size: size)
         self.gameManager = gameManager
@@ -46,6 +47,7 @@ class GameScene: SKScene {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - Overriding parents functions
     override func didMove(to view: SKView) {
         backgroundColor = .systemBackground
         physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: frame.minX + 5, y: frame.minY, width: frame.width - 5, height: frame.height))
@@ -59,19 +61,54 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        guard let playerNode = nodes(at: touch.location(in: self)).filter({ node in
-            return node.name == "Player"
-        }).last else { return }
         
-        if let player = playerNode as? AttackerNode {
-            attacker1.isActive = false
-            attacker2.isActive = false
-            attacker3.isActive = false
-            attacker4.isActive = false
-            attacker5.isActive = false
-            
-            player.isActive.toggle()
-            gameManager?.choosePlayer(player: player)
+        if gameManager?.gameType == .singlePlayer {
+            guard let playerNode = nodes(at: touch.location(in: self)).filter({ node in
+                return node.name?.contains("Attacker") == true
+            }).last else { return }
+
+            if let player = playerNode as? AttackerNode {
+                attacker1.isActive = false
+                attacker2.isActive = false
+                attacker3.isActive = false
+                attacker4.isActive = false
+                attacker5.isActive = false
+                
+                player.isActive.toggle()
+                gameManager?.choosePlayer(player: player)
+            }
+        } else {
+            if gameManager?.isAttacking == true {
+                guard let playerNode = nodes(at: touch.location(in: self)).filter({ node in
+                    return node.name?.contains("Attacker") == true
+                }).last else { return }
+                
+                if let player = playerNode as? AttackerNode {
+                    attacker1.isActive = false
+                    attacker2.isActive = false
+                    attacker3.isActive = false
+                    attacker4.isActive = false
+                    attacker5.isActive = false
+                    
+                    player.isActive.toggle()
+                    gameManager?.choosePlayer(player: player)
+                }
+            } else {
+                guard let defenderNode = nodes(at: touch.location(in: self)).filter({ node in
+                    return node.name?.contains("Defender") == true
+                }).last else { return }
+                
+                if let defender = defenderNode as? DefenderNode {
+                    defender1.isActive = false
+                    defender2.isActive = false
+                    defender3.isActive = false
+                    defender4.isActive = false
+                    defender5.isActive = false
+                    
+                    defender.isActive = true
+                    gameManager?.chooseDefender(defender: defender)
+                }
+            }
         }
     }
 }
@@ -161,28 +198,10 @@ extension GameScene {
         addChild(centerVerticalLines)
         
         // MARK: - Add Attackers
-        attacker1 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 120, y: frame.minY + 50))
-        attacker2 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 60, y: frame.minY + 50))
-        attacker3 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX, y: frame.minY + 50))
-        attacker4 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 60, y: frame.minY + 50))
-        attacker5 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 120, y: frame.minY + 50))
-        addChild(attacker1)
-        addChild(attacker2)
-        addChild(attacker3)
-        addChild(attacker4)
-        addChild(attacker5)
-        
+        setupAttackers()
+
         // MARK: - Add Defenders
-        defender1 = DefenderNode(spawnPoint: CGPoint(x: topLines.frame.midX / 2, y: topLines.frame.midY))
-        defender2 = DefenderNode(spawnPoint: CGPoint(x: topMiddleLines.frame.midX + (topMiddleLines.frame.midX/2), y: topMiddleLines.frame.midY))
-        defender3 = DefenderNode(spawnPoint: CGPoint(x: bottomMiddleLines.frame.midX / 2, y: bottomMiddleLines.frame.midY))
-        defender4 = DefenderNode(spawnPoint: CGPoint(x: bottomLines.frame.midX + (bottomLines.frame.midX/2), y: bottomLines.frame.midY))
-        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY), type: .vertical)
-        addChild(defender1)
-        addChild(defender2)
-        addChild(defender3)
-        addChild(defender4)
-        addChild(defender5)
+        setupDefenders()
         
         if gameManager?.gameType == .singlePlayer {
             setupDefenderMovement()
@@ -221,6 +240,58 @@ extension GameScene {
         let sequence5 = SKAction.sequence([moveToRightAction5, moveToLeftAction5, moveDelay])
         let sequenceForever5 = SKAction.repeatForever(sequence5)
         defender5.run(sequenceForever5)
+    }
+}
+
+extension GameScene {
+    func setupAttackers() {
+        attacker1 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 120, y: frame.minY + 50))
+        attacker1.name = "Attacker-1"
+        attacker2 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 60, y: frame.minY + 50))
+        attacker2.name = "Attacker-2"
+        attacker3 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX, y: frame.minY + 50))
+        attacker3.name = "Attacker-3"
+        attacker4 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 60, y: frame.minY + 50))
+        attacker4.name = "Attacker-4"
+        attacker5 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 120, y: frame.minY + 50))
+        attacker5.name = "Attacker-5"
+        
+        addChild(attacker1)
+        addChild(attacker2)
+        addChild(attacker3)
+        addChild(attacker4)
+        addChild(attacker5)
+        
+        gameManager?.attackers.append(attacker1)
+        gameManager?.attackers.append(attacker2)
+        gameManager?.attackers.append(attacker3)
+        gameManager?.attackers.append(attacker4)
+        gameManager?.attackers.append(attacker5)
+    }
+    
+    func setupDefenders() {
+        defender1 = DefenderNode(spawnPoint: CGPoint(x: topLines.frame.midX / 2, y: topLines.frame.midY))
+        defender1.name = "Defender-1"
+        defender2 = DefenderNode(spawnPoint: CGPoint(x: topMiddleLines.frame.midX + (topMiddleLines.frame.midX/2), y: topMiddleLines.frame.midY))
+        defender2.name = "Defender-2"
+        defender3 = DefenderNode(spawnPoint: CGPoint(x: bottomMiddleLines.frame.midX / 2, y: bottomMiddleLines.frame.midY))
+        defender3.name = "Defender-3"
+        defender4 = DefenderNode(spawnPoint: CGPoint(x: bottomLines.frame.midX + (bottomLines.frame.midX/2), y: bottomLines.frame.midY))
+        defender4.name = "Defender-4"
+        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY), type: .vertical)
+        defender5.name = "Defender-5"
+        
+        addChild(defender1)
+        addChild(defender2)
+        addChild(defender3)
+        addChild(defender4)
+        addChild(defender5)
+        
+        gameManager?.defenders.append(defender1)
+        gameManager?.defenders.append(defender2)
+        gameManager?.defenders.append(defender3)
+        gameManager?.defenders.append(defender4)
+        gameManager?.defenders.append(defender5)
     }
 }
 

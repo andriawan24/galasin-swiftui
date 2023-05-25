@@ -12,6 +12,18 @@ struct GameView: View {
     @ObservedObject var gameManager: GameManager
     @State private var showDialogCancellationConfirmation = false
     
+    private func getAvailableDirections(_ player: AttackerNode?, _ defender: DefenderNode?) -> [GamePadDirection] {
+        if let defender = defender {
+            if defender.type == .horizontal {
+                return [.left, .right]
+            } else {
+                return [.down, .up]
+            }
+        } else {
+            return [.down, .left, .up, .right]
+        }
+    }
+    
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
@@ -40,21 +52,21 @@ struct GameView: View {
                         HStack(alignment: .center) {
                             Text(gameManager.localPlayer.displayName)
                                 .lineLimit(1)
-                            Text("1")
+                            Text("\(gameManager.score)")
                                 .foregroundColor(.white)
                                 .frame(width: 24, height: 24)
                                 .background {
                                     Rectangle()
                                         .cornerRadius(8)
-                                        .foregroundColor(Color(Constants.Colors.primaryBlueColor))
+                                        .foregroundColor(Color(gameManager.currentTeam == .red ? Constants.Colors.primaryRedColor : Constants.Colors.primaryBlueColor))
                                 }
-                            Text("0")
+                            Text("\(gameManager.enemyScore)")
                                 .foregroundColor(.white)
                                 .frame(width: 24, height: 24)
                                 .background {
                                     Rectangle()
                                         .cornerRadius(8)
-                                        .foregroundColor(Color(Constants.Colors.primaryRedColor))
+                                        .foregroundColor(Color(gameManager.currentTeam == .red ? Constants.Colors.primaryBlueColor : Constants.Colors.primaryRedColor))
                                 }
                             Text("\(gameManager.otherPlayer?.displayName ?? "")")
                                 .lineLimit(1)
@@ -65,10 +77,6 @@ struct GameView: View {
             }
             .padding(.horizontal)
             
-            //            HStack {
-            //                Text("Naufal Fawwaz Andriw")
-            //            }
-            
             GeometryReader { value in
                 GameViewController(
                     size: value.size,
@@ -77,18 +85,18 @@ struct GameView: View {
                 .padding()
             }
             
-            GamePadController { direction in
-                gameManager.moveAttacker(direction: direction)
+            GamePadController(directionAvailables: getAvailableDirections(gameManager.chosenPlayer, gameManager.chosenDefender)) { direction in
+                gameManager.movePlayer(direction: direction)
             }
             .padding(.vertical)
             .padding(.bottom)
         }
-        .alert("Congratulations!", isPresented: $gameManager.gameFinished) {
+        .alert("Game Ended!", isPresented: $gameManager.gameFinished) {
             Button("Ok") {
                 gameManager.resetGame()
             }
         } message: {
-            Text("You finished the game, and now you're ready to beat your friend, try multiplayer now")
+            Text("Congratulation for finishing the game! I guess now you are ready to beat your friend, try multiplayer mode and invite your friend to play together!")
         }
         .confirmationDialog(
             "Quit Now?",
@@ -120,6 +128,7 @@ struct GameViewController: UIViewRepresentable {
         skView.showsNodeCount = true
         
         let scene = GameScene(gameManager: gameManager, size: size)
+        gameManager.scene = scene
         scene.scaleMode = .aspectFill
         skView.presentScene(scene)
         
