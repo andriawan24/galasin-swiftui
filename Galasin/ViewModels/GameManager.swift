@@ -9,6 +9,7 @@ import SpriteKit
 import SwiftUI
 import GameKit
 import Foundation
+import AVFoundation
 
 class GameManager: NSObject, ObservableObject {
     @Published var inGame: Bool = false
@@ -25,12 +26,15 @@ class GameManager: NSObject, ObservableObject {
     
     var localPlayer = GKLocalPlayer.local
     var otherPlayer: GKPlayer?
-    var currentMatch: GKMatch?
-    var playerUUIDKey = UUID().uuidString
-    var roundToEnd = 1
     var defenders = [DefenderNode]()
     var attackers = [AttackerNode]()
     var scene: GameScene?
+    
+    private var audioPlayer: AVAudioPlayer?
+    private var audioOneTimePlayer: AVAudioPlayer?
+    private var currentMatch: GKMatch?
+    private var playerUUIDKey = UUID().uuidString
+    private var roundToEnd = 1
     
     // For Showing GameKit Page
     var rootViewController: UIViewController? {
@@ -86,6 +90,7 @@ class GameManager: NSObject, ObservableObject {
             otherPlayer = match.players.first
             send("began:\(playerUUIDKey)")
         }
+        playSound(sound: "background_music", type: "wav")
     }
     
     func choosePlayer(player: AttackerNode) {
@@ -111,21 +116,21 @@ class GameManager: NSObject, ObservableObject {
     func increaseScore() {
         if gameType == .singlePlayer {
             score += 1
-            reducePlayer()
+            reducePlayer(isExplode: false)
         } else {
             if isAttacking {
                 score += 1
-                reducePlayer()
+                reducePlayer(isExplode: false)
                 send("updateScore:\(score)")
             }
         }
     }
     
-    func reducePlayer() {
+    func reducePlayer(isExplode: Bool) {
         attackersLeft -= 1
-//        if gameType == .multiPlayer {
-//            send("updateAttackersLeft:\(attackersLeft)")
-//        }
+        if gameType == .multiPlayer {
+            send("updateAttackersLeft:\(attackersLeft)")
+        }
         
         if attackersLeft == 0 {
             if gameType == .multiPlayer {
@@ -137,15 +142,21 @@ class GameManager: NSObject, ObservableObject {
                     attackersLeft = 5
                     attackers.removeAll()
                     defenders.removeAll()
+                    scene?.removeAllPlayers()
                     scene?.setupAttackers()
                     scene?.setupDefenders()
                     send("changeRound:_")
                 } else {
                     gameFinished = true
+                    send("finishGame:_")
                 }
             } else {
                 gameFinished = true
             }
+        }
+        
+        if isExplode {
+            playSoundOneTime(sound: "explode_music", type: "wav")
         }
     }
     
@@ -160,6 +171,7 @@ class GameManager: NSObject, ObservableObject {
         currentMatch?.disconnect()
         currentMatch?.delegate = nil
         currentMatch = nil
+        stopSound()
     }
     
     private func handleMessage(_ message: String) {
@@ -182,6 +194,12 @@ class GameManager: NSObject, ObservableObject {
             } else {
                 currentTeam = .red
             }
+            
+            attackers.removeAll()
+            defenders.removeAll()
+            scene?.removeAllPlayers()
+            scene?.setupAttackers()
+            scene?.setupDefenders()
         case "movePlayer":
             let type = parameter.split(separator: "/").first ?? ""
             let name = parameter.split(separator: "/")[1]
@@ -202,17 +220,54 @@ class GameManager: NSObject, ObservableObject {
             let score = Int(parameter) ?? 0
             enemyScore = score
         case "changeRound":
+            roundToEnd -= 1
             chosenPlayer = nil
             chosenDefender = nil
             isAttacking.toggle()
             attackersLeft = 5
             attackers.removeAll()
             defenders.removeAll()
+            scene?.removeAllPlayers()
             scene?.setupAttackers()
             scene?.setupDefenders()
+        case "finishGame":
+            gameFinished = true
         default:
             break
         }
+    }
+}
+
+extension GameManager {
+    func playSound(sound: String, type: String) {
+        if let path = Bundle.main.path(forResource: sound, ofType: type) {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.play()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func playSoundOneTime(sound: String, type: String) {
+        if let path = Bundle.main.path(forResource: sound, ofType: type) {
+            do {
+                audioOneTimePlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                audioOneTimePlayer?.numberOfLoops = 0
+                audioOneTimePlayer?.play()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func stopSound() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+        audioOneTimePlayer?.stop()
+        audioOneTimePlayer = nil
     }
 }
 

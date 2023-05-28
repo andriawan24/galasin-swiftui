@@ -24,6 +24,7 @@ struct GamePadController: View {
         HStack(spacing: 12) {
             if directionAvailables.contains(.left) {
                 Button {
+                    playHaptic()
                     onPadTouched(.left)
                 } label: {
                     Image(systemName: "arrow.left")
@@ -35,11 +36,12 @@ struct GamePadController: View {
                 .buttonStyle(.bordered)
             }
             
-            if directionAvailables.contains(.right) {
+            if directionAvailables.contains(.down) {
                 Button {
-                    onPadTouched(.right)
+                    playHaptic()
+                    onPadTouched(.down)
                 } label: {
-                    Image(systemName: "arrow.right")
+                    Image(systemName: "arrow.down")
                         .resizable()
                         .foregroundColor(.black)
                         .frame(width: 24, height: 24)
@@ -52,6 +54,7 @@ struct GamePadController: View {
             
             if directionAvailables.contains(.up) {
                 Button {
+                    playHaptic()
                     onPadTouched(.up)
                 } label: {
                     Image(systemName: "arrow.up")
@@ -63,11 +66,12 @@ struct GamePadController: View {
                 .buttonStyle(.bordered)
             }
             
-            if directionAvailables.contains(.down) {
+            if directionAvailables.contains(.right) {
                 Button {
-                    onPadTouched(.down)
+                    playHaptic()
+                    onPadTouched(.right)
                 } label: {
-                    Image(systemName: "arrow.down")
+                    Image(systemName: "arrow.right")
                         .resizable()
                         .foregroundColor(.black)
                         .frame(width: 24, height: 24)

@@ -26,6 +26,9 @@
 		D65327EB2A1928E6002C7E9E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327EA2A1928E6002C7E9E /* GameScene.swift */; };
 		D6C9A1952A1DE580001E1188 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9A1942A1DE580001E1188 /* HomePage.swift */; };
 		D6E0D5772A1B7E0E00A7FBE0 /* PhysicalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E0D5762A1B7E0E00A7FBE0 /* PhysicalCategory.swift */; };
+		D6EDFA062A1FC33700529264 /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6EDFA052A1FC33700529264 /* background_music.wav */; };
+		D6EDFA082A1FC7CB00529264 /* explode_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6EDFA072A1FC7CB00529264 /* explode_music.wav */; };
+		D6F27EF92A1F7B9800B69794 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F27EF82A1F7B9800B69794 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,9 @@
 		D65327EA2A1928E6002C7E9E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		D6C9A1942A1DE580001E1188 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		D6E0D5762A1B7E0E00A7FBE0 /* PhysicalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalCategory.swift; sourceTree = "<group>"; };
+		D6EDFA052A1FC33700529264 /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
+		D6EDFA072A1FC7CB00529264 /* explode_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explode_music.wav; sourceTree = "<group>"; };
+		D6F27EF82A1F7B9800B69794 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 				D65327C52A18DE1A002C7E9E /* Assets.xcassets */,
 				D65327DE2A18DEF0002C7E9E /* Info.plist */,
 				D65327D02A18DE98002C7E9E /* Fonts */,
+				D6EDFA022A1FC18000529264 /* Music */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -191,6 +198,7 @@
 				D629E5C52A19E4DB007D908C /* ColorExtentions.swift */,
 				D629E5C92A1A3150007D908C /* Constants.swift */,
 				D6E0D5762A1B7E0E00A7FBE0 /* PhysicalCategory.swift */,
+				D6F27EF82A1F7B9800B69794 /* Helper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -202,6 +210,15 @@
 				D6C9A1942A1DE580001E1188 /* HomePage.swift */,
 			);
 			path = Pages;
+			sourceTree = "<group>";
+		};
+		D6EDFA022A1FC18000529264 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				D6EDFA072A1FC7CB00529264 /* explode_music.wav */,
+				D6EDFA052A1FC33700529264 /* background_music.wav */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +279,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6EDFA062A1FC33700529264 /* background_music.wav in Resources */,
 				D629E5D42A1A8823007D908C /* Poppins-SemiBold.ttf in Resources */,
 				D629E5D52A1A8823007D908C /* Poppins-Bold.ttf in Resources */,
 				D629E5D62A1A8823007D908C /* Poppins-Regular.ttf in Resources */,
+				D6EDFA082A1FC7CB00529264 /* explode_music.wav in Resources */,
 				D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */,
 				D65327C92A18DE1A002C7E9E /* Preview Assets.xcassets in Resources */,
 				D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */,
@@ -289,6 +308,7 @@
 				D65327C22A18DE1A002C7E9E /* GalasinApp.swift in Sources */,
 				D629E5CF2A1A8741007D908C /* GamePadController.swift in Sources */,
 				D6C9A1952A1DE580001E1188 /* HomePage.swift in Sources */,
+				D6F27EF92A1F7B9800B69794 /* Helper.swift in Sources */,
 				D629E5C62A19E4DB007D908C /* ColorExtentions.swift in Sources */,
 				D629E5CA2A1A3150007D908C /* Constants.swift in Sources */,
 			);

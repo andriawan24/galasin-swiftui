@@ -37,6 +37,10 @@ class GameScene: SKScene {
     var defender4: DefenderNode!
     var defender5: DefenderNode!
     
+    // Finish Node
+    var finishText: SKLabelNode!
+    var startText: SKLabelNode!
+    
     // MARK: - Initializations
     init(gameManager: GameManager, size: CGSize) {
         super.init(size: size)
@@ -49,7 +53,7 @@ class GameScene: SKScene {
     
     // MARK: - Overriding parents functions
     override func didMove(to view: SKView) {
-        backgroundColor = .systemBackground
+        backgroundColor = .white
         physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: frame.minX + 5, y: frame.minY, width: frame.width - 5, height: frame.height))
         physicsBody?.usesPreciseCollisionDetection = true
         physicsBody?.categoryBitMask = PhysicalCategory.Wall
@@ -66,7 +70,7 @@ class GameScene: SKScene {
             guard let playerNode = nodes(at: touch.location(in: self)).filter({ node in
                 return node.name?.contains("Attacker") == true
             }).last else { return }
-
+            
             if let player = playerNode as? AttackerNode {
                 attacker1.isActive = false
                 attacker2.isActive = false
@@ -116,7 +120,7 @@ class GameScene: SKScene {
 extension GameScene {
     private func setupNodes() {
         // MARK: - Center Field
-        let centerFieldSize = CGSize(width: frame.width - 20, height: frame.height - 220)
+        let centerFieldSize = CGSize(width: frame.size.width - (frame.size.width * 0.05), height: frame.height - (frame.size.width * 0.5))
         centerFieldSquare = SKShapeNode(rectOf: centerFieldSize, cornerRadius: 8)
         centerFieldSquare.strokeColor = .black
         centerFieldSquare.zPosition = -1
@@ -128,12 +132,12 @@ extension GameScene {
         addChild(centerFieldSquare)
         
         // MARK: - Bottom Field
-        let bottomFieldSize = CGSize(width: frame.width - 20, height: 100)
+        let bottomFieldSize = CGSize(width: frame.size.width - (frame.size.width * 0.05), height: frame.height * 0.1)
         bottomFieldSquare = SKShapeNode(rectOf: bottomFieldSize)
-        bottomFieldSquare.strokeColor = .red
+        // bottomFieldSquare.strokeColor = .red
         bottomFieldSquare.zPosition = -1
-        bottomFieldSquare.lineWidth = 2
-        bottomFieldSquare.position = CGPoint(x: frame.midX, y: frame.minY + 50)
+        // bottomFieldSquare.lineWidth = 2
+        bottomFieldSquare.position = CGPoint(x: frame.midX, y: frame.minY + bottomFieldSize.height)
         bottomFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: bottomFieldSize)
         bottomFieldSquare.physicsBody?.categoryBitMask = PhysicalCategory.Field
         bottomFieldSquare.physicsBody?.isDynamic = false
@@ -142,18 +146,40 @@ extension GameScene {
         addChild(bottomFieldSquare)
         
         // MARK: - Top Field
-        let topFieldSize = CGSize(width: frame.width - 20, height: 60)
+        let topFieldSize = CGSize(width: frame.size.width - (frame.size.width * 0.05), height: frame.height * 0.1)
         topFieldSquare = SKShapeNode(rectOf: topFieldSize)
-        topFieldSquare.strokeColor = .red
+        // topFieldSquare.strokeColor = .red
         topFieldSquare.zPosition = -1
-        topFieldSquare.lineWidth = 2
-        topFieldSquare.position = CGPoint(x: frame.midX, y: frame.maxY - 50)
+        // topFieldSquare.lineWidth = 2
+        topFieldSquare.position = CGPoint(x: frame.midX, y: frame.maxY - bottomFieldSize.height)
         topFieldSquare.physicsBody = SKPhysicsBody(rectangleOf: topFieldSize)
         topFieldSquare.physicsBody?.isDynamic = false
         topFieldSquare.physicsBody?.affectedByGravity = false
         topFieldSquare.physicsBody?.categoryBitMask = PhysicalCategory.FinishField
         topFieldSquare.physicsBody?.mass = 100.0
         addChild(topFieldSquare)
+        
+        // MARK: - Finish Text
+        finishText = SKLabelNode(text: "Finish")
+        finishText.text = "Finish"
+        finishText.fontName = Constants.Fonts.poppinsSemibold
+        finishText.fontSize = 24.0
+        finishText.zPosition = 2
+        finishText.color = UIColor(Color(hex: 0xFF000000, alpha: 0.3))
+        finishText.fontColor = UIColor(Color(hex: 0xFF000000, alpha: 0.3))
+        finishText.position = CGPoint(x: topFieldSquare.frame.midX, y: topFieldSquare.frame.midY)
+        addChild(finishText)
+        
+        // MARK: - Start Text
+        startText = SKLabelNode(text: "Start")
+        startText.text = "Start"
+        startText.fontName = Constants.Fonts.poppinsSemibold
+        startText.fontSize = 24.0
+        startText.zPosition = 2
+        startText.color = UIColor(Color(hex: 0xFF000000, alpha: 0.3))
+        startText.fontColor = UIColor(Color(hex: 0xFF000000, alpha: 0.3))
+        startText.position = CGPoint(x: bottomFieldSquare.frame.midX, y: bottomFieldSquare.frame.midY)
+        addChild(startText)
         
         // MARK: - Add Lines
         var path = CGMutablePath()
@@ -199,7 +225,7 @@ extension GameScene {
         
         // MARK: - Add Attackers
         setupAttackers()
-
+        
         // MARK: - Add Defenders
         setupDefenders()
         
@@ -244,16 +270,39 @@ extension GameScene {
 }
 
 extension GameScene {
+    func removeAllPlayers() {
+        attacker1.removeFromParent()
+        attacker2.removeFromParent()
+        attacker3.removeFromParent()
+        attacker4.removeFromParent()
+        attacker5.removeFromParent()
+        defender1.removeFromParent()
+        defender2.removeFromParent()
+        defender3.removeFromParent()
+        defender4.removeFromParent()
+        defender5.removeFromParent()
+    }
+    
     func setupAttackers() {
-        attacker1 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 120, y: frame.minY + 50))
+        let currentTeamColor = gameManager?.currentTeam == .blue ? Constants.Colors.primaryBlueColor : Constants.Colors.primaryRedColor
+        let anotherColor = gameManager?.currentTeam == .blue ? Constants.Colors.primaryRedColor : Constants.Colors.primaryBlueColor
+        var color = gameManager?.isAttacking == true ? currentTeamColor : anotherColor
+        
+        if gameManager?.gameType == .singlePlayer {
+            color = Constants.Colors.primaryBlueColor
+        }
+        
+        let radius = frame.size.width * 0.04
+        
+        attacker1 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 120, y: bottomFieldSquare.frame.midY), color: color, size: radius)
         attacker1.name = "Attacker-1"
-        attacker2 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 60, y: frame.minY + 50))
+        attacker2 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX - 60, y: bottomFieldSquare.frame.midY), color: color, size: radius)
         attacker2.name = "Attacker-2"
-        attacker3 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX, y: frame.minY + 50))
+        attacker3 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX, y: bottomFieldSquare.frame.midY), color: color, size: radius)
         attacker3.name = "Attacker-3"
-        attacker4 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 60, y: frame.minY + 50))
+        attacker4 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 60, y: bottomFieldSquare.frame.midY), color: color, size: radius)
         attacker4.name = "Attacker-4"
-        attacker5 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 120, y: frame.minY + 50))
+        attacker5 = AttackerNode(spawnPoint: CGPoint(x: bottomFieldSquare.frame.midX + 120, y: bottomFieldSquare.frame.midY), color: color, size: radius)
         attacker5.name = "Attacker-5"
         
         addChild(attacker1)
@@ -270,15 +319,25 @@ extension GameScene {
     }
     
     func setupDefenders() {
-        defender1 = DefenderNode(spawnPoint: CGPoint(x: topLines.frame.midX / 2, y: topLines.frame.midY))
+        let currentTeamColor = gameManager?.currentTeam == .blue ? Constants.Colors.primaryBlueColor : Constants.Colors.primaryRedColor
+        let anotherColor = gameManager?.currentTeam == .blue ? Constants.Colors.primaryRedColor : Constants.Colors.primaryBlueColor
+        var color = gameManager?.isAttacking == false ? currentTeamColor : anotherColor
+        
+        if gameManager?.gameType == .singlePlayer {
+            color = Constants.Colors.primaryRedColor
+        }
+        
+        let radius = frame.size.width * 0.04
+        
+        defender1 = DefenderNode(spawnPoint: CGPoint(x: topLines.frame.midX / 2, y: topLines.frame.midY), uiColor: color, size: radius)
         defender1.name = "Defender-1"
-        defender2 = DefenderNode(spawnPoint: CGPoint(x: topMiddleLines.frame.midX + (topMiddleLines.frame.midX/2), y: topMiddleLines.frame.midY))
+        defender2 = DefenderNode(spawnPoint: CGPoint(x: topMiddleLines.frame.midX + (topMiddleLines.frame.midX/2), y: topMiddleLines.frame.midY), uiColor: color, size: radius)
         defender2.name = "Defender-2"
-        defender3 = DefenderNode(spawnPoint: CGPoint(x: bottomMiddleLines.frame.midX / 2, y: bottomMiddleLines.frame.midY))
+        defender3 = DefenderNode(spawnPoint: CGPoint(x: bottomMiddleLines.frame.midX / 2, y: bottomMiddleLines.frame.midY), uiColor: color, size: radius)
         defender3.name = "Defender-3"
-        defender4 = DefenderNode(spawnPoint: CGPoint(x: bottomLines.frame.midX + (bottomLines.frame.midX/2), y: bottomLines.frame.midY))
+        defender4 = DefenderNode(spawnPoint: CGPoint(x: bottomLines.frame.midX + (bottomLines.frame.midX/2), y: bottomLines.frame.midY), uiColor: color, size: radius)
         defender4.name = "Defender-4"
-        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY), type: .vertical)
+        defender5 = DefenderNode(spawnPoint: CGPoint(x: centerVerticalLines.frame.midX, y: centerVerticalLines.frame.midY), type: .vertical, uiColor: color, size: radius)
         defender5.name = "Defender-5"
         
         addChild(defender1)
@@ -304,7 +363,7 @@ extension GameScene: SKPhysicsContactDelegate {
         switch body.categoryBitMask {
         case PhysicalCategory.Defender:
             player.node?.removeFromParent()
-            gameManager?.reducePlayer()
+            gameManager?.reducePlayer(isExplode: true)
         case PhysicalCategory.FinishField:
             player.node?.removeFromParent()
             gameManager?.increaseScore()

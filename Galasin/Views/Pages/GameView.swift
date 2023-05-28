@@ -82,7 +82,7 @@ struct GameView: View {
                     size: value.size,
                     gameManager: gameManager
                 )
-                .padding()
+                .padding(.vertical)
             }
             
             GamePadController(directionAvailables: getAvailableDirections(gameManager.chosenPlayer, gameManager.chosenDefender)) { direction in
@@ -91,12 +91,25 @@ struct GameView: View {
             .padding(.vertical)
             .padding(.bottom)
         }
-        .alert("Game Ended!", isPresented: $gameManager.gameFinished) {
+        .alert(
+            gameManager.gameType == .singlePlayer ? "Game Ended!" : gameManager.score > gameManager.enemyScore ? "Match Has Ended!" : "Thank you.",
+            isPresented: $gameManager.gameFinished
+        ) {
             Button("Ok") {
                 gameManager.resetGame()
             }
         } message: {
-            Text("Congratulation for finishing the game! I guess now you are ready to beat your friend, try multiplayer mode and invite your friend to play together!")
+            if gameManager.gameType == .singlePlayer {
+                Text("Congratulation for finishing the game! I guess now you are ready to beat your friend, try multiplayer mode and invite your friend to play together!")
+            } else {
+                if gameManager.score > gameManager.enemyScore {
+                    Text("Congratulations on your victory in this match! You showed great skill, teamwork, and determination with yourself. Well done! Enjoy the sweet taste of success and savor this moment of triumph. Keep up the great work and continue to excel in every challenge that comes your way")
+                } else if gameManager.score < gameManager.enemyScore {
+                    Text("Although you didn't emerge as the winner in this game, your participation and effort were commendable. Remember that winning isn't the only measure of success. The important thing is that you played with enthusiasm, sportsmanship, and gave it your all. Take this experience as an opportunity to learn and grow. Keep practicing, stay positive, and you'll achieve greatness in future games")
+                } else {
+                    Text("Wow, what an intense match in this game! It's a tie, showing the incredible talent and determination of both players. You've demonstrated your skill and made the game an unforgettable experience. Great job to both of you!")
+                }
+            }
         }
         .confirmationDialog(
             "Quit Now?",
@@ -122,10 +135,10 @@ struct GameViewController: UIViewRepresentable {
     
     func makeUIView(context: Context) -> SKView {
         let skView = SKView()
-        skView.showsFPS = true
-        skView.showsPhysics = true
+        skView.showsFPS = false
+        skView.showsPhysics = false
         skView.ignoresSiblingOrder = true
-        skView.showsNodeCount = true
+        skView.showsNodeCount = false
         
         let scene = GameScene(gameManager: gameManager, size: size)
         gameManager.scene = scene

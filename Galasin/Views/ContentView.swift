@@ -20,6 +20,7 @@ struct ContentView: View {
                 HomePage(gameManager: gameManager)
             }
         }
+        .preferredColorScheme(.light)
         .onAppear {
             gameManager.authenticateUser()
         }

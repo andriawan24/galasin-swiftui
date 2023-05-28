@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @ObservedObject var gameManager: GameManager
-    @State private var showDetailDialog = false
+    @State private var showDetailDialog = true
     
     var body: some View {
         VStack {
@@ -34,6 +34,7 @@ struct HomePage: View {
             HStack(spacing: 40) {
                 Button {
                     // TODO: Play Multiplayer
+                    playHaptic()
                     gameManager.startGame(type: .multiPlayer)
                 } label: {
                     Text("Multi Player")
@@ -44,6 +45,7 @@ struct HomePage: View {
                 .disabled(gameManager.authStatus != .authenticated)
 
                 Button {
+                    playHaptic()
                     gameManager.startGame(type: .singlePlayer)
                 } label: {
                     Text("Single Player")
@@ -59,6 +61,7 @@ struct HomePage: View {
             Text("\(gameManager.authStatus.rawValue)")
             
             Button {
+                playHaptic()
                 showDetailDialog.toggle()
             } label: {
                 Label("How to play?", systemImage: "questionmark.circle")
@@ -68,11 +71,67 @@ struct HomePage: View {
                     .padding([.horizontal, .bottom])
             }.buttonStyle(.borderless)
                 .sheet(isPresented: $showDetailDialog) {
-                    VStack {
-                        // TODO: Add Information about the game
-                        Text("This is Sheet")
-                        Text("This could be explanation for the app")
+                    ScrollView {
+                        VStack(alignment: .center) {
+                            Text("How to play?")
+                                .font(.custom(Constants.Fonts.poppinsSemibold, size: 24))
+                            
+                            HStack {
+                                Text("Players")
+                                    .font(.custom(Constants.Fonts.poppinsSemibold, size: 16))
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("The game can be played by 2 players, but more players can join to make it more exciting")
+                                    .font(.custom(Constants.Fonts.poppins, size: 14))
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Game Objective")
+                                    .font(.custom(Constants.Fonts.poppinsSemibold, size: 16))
+                                Spacer()
+                            }
+                            .padding(.top)
+                            
+                            HStack {
+                                Text("The objective of Gobak Sodor is for the attacking team to successfully cross from one end of the playing area to the other, while the defending team tries to prevent them from doing so")
+                                    .font(.custom(Constants.Fonts.poppins, size: 14))
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Teams")
+                                    .font(.custom(Constants.Fonts.poppinsSemibold, size: 16))
+                                Spacer()
+                            }
+                            .padding(.top)
+                            
+                            HStack {
+                                Text("Divide the players into two teams: the attacking team and the defending team. The attacking team will attempt to cross the playing area, while the defending team will try to tag the attacking players to eliminate them")
+                                    .font(.custom(Constants.Fonts.poppins, size: 14))
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Winning")
+                                    .font(.custom(Constants.Fonts.poppinsSemibold, size: 16))
+                                Spacer()
+                            }
+                            .padding(.top)
+                            
+                            HStack {
+                                Text("The attacking team wins if they successfully cross the playing area without being tagged by the defending team. The defending team wins if they tag all the attacking players before they can cross")
+                                    .font(.custom(Constants.Fonts.poppins, size: 14))
+                                Spacer()
+                            }
+                        }
+                        .padding()
+                        .padding(.top)
                     }
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
                 }
 
         }

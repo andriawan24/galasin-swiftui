@@ -9,9 +9,11 @@ import SpriteKit
 
 class DefenderNode: SKNode {
     
-    private let circle: SKShapeNode = SKShapeNode(circleOfRadius: 18)
     private(set) var type: DefenderType = .horizontal
     var moveable = true
+    var color: UIColor!
+    var size: CGFloat!
+    var circle: SKShapeNode!
     var isActive: Bool = false {
         willSet {
             circle.strokeColor = newValue ? .black : .clear
@@ -19,12 +21,15 @@ class DefenderNode: SKNode {
         }
     }
     
-    init(spawnPoint: CGPoint, type: DefenderType = .horizontal) {
+    init(spawnPoint: CGPoint, type: DefenderType = .horizontal, uiColor: UIColor, size: CGFloat) {
         super.init()
         self.name = "Defender"
+        self.size = size
+        self.color = uiColor
         self.type = type
         self.zPosition = 8.0
         self.position = spawnPoint
+        self.circle = SKShapeNode(circleOfRadius: size)
         self.setupPhysics()
     }
     
@@ -35,8 +40,8 @@ class DefenderNode: SKNode {
 
 extension DefenderNode {
     private func setupPhysics() {
-        circle.fillColor = Constants.Colors.primaryRedColor
-        circle.physicsBody = SKPhysicsBody(circleOfRadius: 18)
+        circle.fillColor = color
+        circle.physicsBody = SKPhysicsBody(circleOfRadius: size)
         circle.physicsBody?.isDynamic = false
         circle.physicsBody?.categoryBitMask = PhysicalCategory.Defender
         addChild(circle)

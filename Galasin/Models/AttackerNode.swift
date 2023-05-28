@@ -12,8 +12,10 @@ class AttackerNode: SKNode {
     
     var moveable = true
     var spawnPoint: CGPoint!
+    var color: UIColor!
+    var size: CGFloat!
+    var circle: SKShapeNode!
     
-    private let circle: SKShapeNode = SKShapeNode(circleOfRadius: 18)
     var isActive: Bool = false {
         willSet {
             circle.strokeColor = newValue ? .black : .clear
@@ -21,9 +23,12 @@ class AttackerNode: SKNode {
         }
     }
     
-    init(spawnPoint: CGPoint) {
+    init(spawnPoint: CGPoint, color: UIColor, size: CGFloat) {
         super.init()
+        self.color = color
+        self.size = size
         self.spawnPoint = spawnPoint
+        self.circle = SKShapeNode(circleOfRadius: size)
         self.name = "Player"
         self.zPosition = 10.0
         self.position = spawnPoint
@@ -37,10 +42,10 @@ class AttackerNode: SKNode {
 
 extension AttackerNode {
     private func setupPhysics() {
-        circle.fillColor = Constants.Colors.primaryBlueColor
+        circle.fillColor = color
         circle.name = "Player"
         circle.zPosition = .pi
-        circle.physicsBody = SKPhysicsBody(circleOfRadius: 18)
+        circle.physicsBody = SKPhysicsBody(circleOfRadius: size)
         circle.physicsBody?.isDynamic = true
         circle.physicsBody?.affectedByGravity = false
         circle.physicsBody?.linearDamping = 0.0
@@ -63,7 +68,6 @@ extension AttackerNode {
             switch direction {
             case .up:
                 let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 20), duration: 0.2)
-                // TODO: Send data to another user
                 circle.run(moveUp)
                 break
             case .down:
