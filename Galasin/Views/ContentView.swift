@@ -15,12 +15,11 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if gameManager.inGame {
-                GameView(gameManager: gameManager)
+                GamePage(gameManager: gameManager)
             } else {
                 HomePage(gameManager: gameManager)
             }
         }
-        .preferredColorScheme(.light)
         .onAppear {
             gameManager.authenticateUser()
         }

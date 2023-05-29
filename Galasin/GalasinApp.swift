@@ -15,6 +15,7 @@ struct GalasinApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(gameManager: gameManager)
+                .preferredColorScheme(.light)
         }
     }
 }

@@ -51,10 +51,6 @@ extension AttackerNode {
         circle.physicsBody?.linearDamping = 0.0
         circle.physicsBody?.allowsRotation = false
         circle.physicsBody?.usesPreciseCollisionDetection = true
-//        circle.physicsBody?.friction = 1.0
-//        circle.physicsBody?.restitution = 0.0
-//        circle.physicsBody?.mass = 10.0
-        // circle.physicsBody?.collisionBitMask = 0
         circle.physicsBody?.categoryBitMask = PhysicalCategory.Attacker
         circle.physicsBody?.contactTestBitMask = PhysicalCategory.Defender | PhysicalCategory.FinishField
         circle.physicsBody?.collisionBitMask = PhysicalCategory.Wall

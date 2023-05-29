@@ -9,12 +9,12 @@ import SwiftUI
 
 struct HomePage: View {
     @ObservedObject var gameManager: GameManager
-    @State private var showDetailDialog = true
+    @State private var showDetailDialog = false
     
     var body: some View {
         VStack {
             Text("Galasin")
-                .font(.custom("Kodchasan-Bold", size: 40))
+                .font(.custom(Constants.Fonts.kodchasanBold, size: 40))
                 .padding(.top)
                 .padding(.horizontal)
             
@@ -27,18 +27,17 @@ struct HomePage: View {
                 .padding(.vertical)
             
             Text("Choose Mode!")
-                .font(.custom("Kodchasan-Bold", size: 40))
+                .font(.custom(Constants.Fonts.kodchasanBold, size: 40))
                 .padding(.top)
                 .padding(.horizontal)
             
             HStack(spacing: 40) {
                 Button {
-                    // TODO: Play Multiplayer
                     playHaptic()
                     gameManager.startGame(type: .multiPlayer)
                 } label: {
                     Text("Multi Player")
-                        .font(.custom("Kodchasan-SemiBold", size: 18))
+                        .font(.custom(Constants.Fonts.kodchasanSemibold, size: 18))
                         .foregroundColor(.primary)
                 }
                 .buttonStyle(.bordered)
@@ -49,7 +48,7 @@ struct HomePage: View {
                     gameManager.startGame(type: .singlePlayer)
                 } label: {
                     Text("Single Player")
-                        .font(.custom("Kodchasan-SemiBold", size: 18))
+                        .font(.custom(Constants.Fonts.kodchasanSemibold, size: 18))
                         .foregroundColor(.primary)
                 }
                 .buttonStyle(.bordered)
@@ -65,7 +64,7 @@ struct HomePage: View {
                 showDetailDialog.toggle()
             } label: {
                 Label("How to play?", systemImage: "questionmark.circle")
-                    .font(.custom("Kodchasan-SemiBold", size: 16))
+                    .font(.custom(Constants.Fonts.kodchasanSemibold, size: 16))
                     .foregroundColor(.primary)
                     .padding(.top, 100)
                     .padding([.horizontal, .bottom])

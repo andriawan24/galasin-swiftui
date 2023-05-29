@@ -22,8 +22,9 @@
 		D65327E12A18E0EE002C7E9E /* Kodchasan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */; };
 		D65327E22A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */; };
 		D65327E62A191568002C7E9E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E52A191568002C7E9E /* GameManager.swift */; };
-		D65327E92A191E3B002C7E9E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E82A191E3B002C7E9E /* GameView.swift */; };
+		D65327E92A191E3B002C7E9E /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327E82A191E3B002C7E9E /* GamePage.swift */; };
 		D65327EB2A1928E6002C7E9E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65327EA2A1928E6002C7E9E /* GameScene.swift */; };
+		D694F2F12A24836600B8F986 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694F2F02A24836600B8F986 /* GameViewController.swift */; };
 		D6C9A1952A1DE580001E1188 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9A1942A1DE580001E1188 /* HomePage.swift */; };
 		D6E0D5772A1B7E0E00A7FBE0 /* PhysicalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E0D5762A1B7E0E00A7FBE0 /* PhysicalCategory.swift */; };
 		D6EDFA062A1FC33700529264 /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6EDFA052A1FC33700529264 /* background_music.wav */; };
@@ -50,8 +51,9 @@
 		D65327DF2A18E0EE002C7E9E /* Kodchasan-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-Bold.ttf"; sourceTree = "<group>"; };
 		D65327E02A18E0EE002C7E9E /* Kodchasan-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kodchasan-SemiBold.ttf"; sourceTree = "<group>"; };
 		D65327E52A191568002C7E9E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
-		D65327E82A191E3B002C7E9E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		D65327E82A191E3B002C7E9E /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		D65327EA2A1928E6002C7E9E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		D694F2F02A24836600B8F986 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D6C9A1942A1DE580001E1188 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		D6E0D5762A1B7E0E00A7FBE0 /* PhysicalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalCategory.swift; sourceTree = "<group>"; };
 		D6EDFA052A1FC33700529264 /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				D629E5CE2A1A8741007D908C /* GamePadController.swift */,
+				D694F2F02A24836600B8F986 /* GameViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -206,7 +209,7 @@
 		D6C9A1932A1DE571001E1188 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				D65327E82A191E3B002C7E9E /* GameView.swift */,
+				D65327E82A191E3B002C7E9E /* GamePage.swift */,
 				D6C9A1942A1DE580001E1188 /* HomePage.swift */,
 			);
 			path = Pages;
@@ -298,13 +301,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D694F2F12A24836600B8F986 /* GameViewController.swift in Sources */,
 				D629E5C82A19ED56007D908C /* AttackerNode.swift in Sources */,
 				D65327EB2A1928E6002C7E9E /* GameScene.swift in Sources */,
 				D65327C42A18DE1A002C7E9E /* ContentView.swift in Sources */,
 				D65327E62A191568002C7E9E /* GameManager.swift in Sources */,
 				D629E5CC2A1A3AB6007D908C /* DefenderNode.swift in Sources */,
 				D6E0D5772A1B7E0E00A7FBE0 /* PhysicalCategory.swift in Sources */,
-				D65327E92A191E3B002C7E9E /* GameView.swift in Sources */,
+				D65327E92A191E3B002C7E9E /* GamePage.swift in Sources */,
 				D65327C22A18DE1A002C7E9E /* GalasinApp.swift in Sources */,
 				D629E5CF2A1A8741007D908C /* GamePadController.swift in Sources */,
 				D6C9A1952A1DE580001E1188 /* HomePage.swift in Sources */,

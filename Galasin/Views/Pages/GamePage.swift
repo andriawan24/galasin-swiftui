@@ -8,7 +8,7 @@
 import SpriteKit
 import SwiftUI
 
-struct GameView: View {
+struct GamePage: View {
     @ObservedObject var gameManager: GameManager
     @State private var showDialogCancellationConfirmation = false
     
@@ -128,31 +128,6 @@ struct GameView: View {
     }
 }
 
-struct GameViewController: UIViewRepresentable {
-    
-    var size: CGSize
-    @ObservedObject var gameManager: GameManager
-    
-    func makeUIView(context: Context) -> SKView {
-        let skView = SKView()
-        skView.showsFPS = false
-        skView.showsPhysics = false
-        skView.ignoresSiblingOrder = true
-        skView.showsNodeCount = false
-        
-        let scene = GameScene(gameManager: gameManager, size: size)
-        gameManager.scene = scene
-        scene.scaleMode = .aspectFill
-        skView.presentScene(scene)
-        
-        return skView
-    }
-    
-    func updateUIView(_ uiView: SKView, context: Context) {
-        // TODO: Update UI View
-    }
-}
-
 struct GameViewiPhone_Previews: PreviewProvider {
     static var gameManager: GameManager {
         let gameManager = GameManager()
@@ -161,13 +136,13 @@ struct GameViewiPhone_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        GameView(gameManager: gameManager)
+        GamePage(gameManager: gameManager)
     }
 }
 
 struct GameViewiPad_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameManager: GameManager())
+        GamePage(gameManager: GameManager())
             .previewDevice("iPad Pro (12.9-inch) (6th generation)")
     }
 }
