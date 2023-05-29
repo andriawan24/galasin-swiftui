@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  HomePage.swift
 //  Galasin
 //
 //  Created by Naufal Fawwaz Andriawan on 24/05/23.

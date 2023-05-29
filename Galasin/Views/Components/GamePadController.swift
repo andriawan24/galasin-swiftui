@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: Change Design of the controller using common like playstation gamepad or analog
 struct GamePadController: View {
     
     var onPadTouched: (GamePadDirection) -> Void

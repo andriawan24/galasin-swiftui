@@ -15,8 +15,10 @@ struct GamePage: View {
     private func getAvailableDirections(_ player: AttackerNode?, _ defender: DefenderNode?) -> [GamePadDirection] {
         if let defender = defender {
             if defender.type == .horizontal {
+                // MARK: - This is for horizontal defender
                 return [.left, .right]
             } else {
+                // MARK: - This is for vertical defender
                 return [.down, .up]
             }
         } else {

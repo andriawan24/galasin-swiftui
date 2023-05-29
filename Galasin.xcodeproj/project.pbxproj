@@ -170,9 +170,9 @@
 		D65327E32A19151E002C7E9E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D6C9A1932A1DE571001E1188 /* Pages */,
 				D629E5CD2A1A872F007D908C /* Components */,
 				D60CB42E2A1B0EF500576183 /* Scenes */,
+				D6C9A1932A1DE571001E1188 /* Pages */,
 				D65327C32A18DE1A002C7E9E /* ContentView.swift */,
 			);
 			path = Views;

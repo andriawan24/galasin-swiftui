@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct GalasinApp: App {
     
+    // Will be used alongside the application running
     @StateObject private var gameManager = GameManager()
     
     var body: some Scene {
